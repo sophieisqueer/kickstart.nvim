@@ -92,13 +92,21 @@ require('lazy').setup({
     },
   },
 
-  {
+  --[[{
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'onedark'
     end,
+  },]] --
+
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    config = function()
+      vim.cmd.colorscheme 'catppuccin'
+    end
   },
 
   {
@@ -107,7 +115,13 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        theme = 'onedark',
+        --theme = 'onedark',
+        theme = 'catppuccin',
+        --[[ignore_focus = {
+          'help',
+          'neo-tree'
+        }]] --
+        globalstatus = true,
       },
     },
   },
@@ -473,6 +487,13 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 0
+vim.o.expandtab = true
+
+require('custom.keybinds')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
