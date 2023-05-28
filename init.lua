@@ -493,6 +493,8 @@ vim.o.shiftwidth = 2
 vim.o.softtabstop = 0
 vim.o.expandtab = true
 
+vim.o.foldmethod = "indent"
+
 require('custom.keybinds')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
