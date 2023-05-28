@@ -35,23 +35,24 @@ return {
 		require('neo-tree').setup({
 			sources = {
 				"filesystem",
-				"buffers",
+				--"buffers",
 				"git_status",
 				"document_symbols",
 			},
 			source_selector = {
-				winbar = true,
+				winbar = false,
 				statusbar = false,
+				tabs_layout = "active",
 
 				sources = {
 					{
 						source = "filesystem", -- string
 						display_name = "  Files " -- string | nil
 					},
-					{
+					--[[{
 						source = "buffers",    -- string
 						display_name = "  Buffers " -- string | nil
-					},
+					},]] --
 					{
 						source = "document_symbols",
 						display_name = "  Symbols "
@@ -77,7 +78,7 @@ return {
 			git_status = {
 				window = {
 					position = "float",
-				}
+				},
 			},
 		})
 	end,
