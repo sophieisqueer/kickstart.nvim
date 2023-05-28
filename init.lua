@@ -117,12 +117,26 @@ require('lazy').setup({
       options = {
         --theme = 'onedark',
         theme = 'catppuccin',
-        --[[ignore_focus = {
+        ignore_focus = {
           'help',
           'neo-tree'
-        }]] --
+        },
         globalstatus = true,
       },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'filetype' },
+        lualine_y = { 'os.date("%R")' },
+        lualine_z = { 'location' }
+      },
+      tabline = {
+        lualine_a = { 'buffers' },
+        lualine_c = { 'filename' },
+        lualine_z = { 'tabs' }
+      }
+
     },
   },
 
