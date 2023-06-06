@@ -4,6 +4,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- NOTE: You should make sure your terminal supports this
+vim.o.termguicolors = true
+
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -198,9 +202,6 @@ require('lazy').setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
 
 -- Set highlight on search
 vim.o.hlsearch = false
