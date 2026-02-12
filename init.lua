@@ -912,5 +912,11 @@ require('lazy').setup({
   },
 })
 
+vim.o.guifont = 'JetBrains Mono:h12'
+vim.o.cc = '80'
+
+vim.o.expandtab = true
+
+vim.g.filetype_md = 'pandoc'
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
