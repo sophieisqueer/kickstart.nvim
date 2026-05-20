@@ -656,6 +656,17 @@ require('lazy').setup({
         },
       })
       vim.lsp.enable 'lua_ls'
+
+      vim.lsp.config('matlab_ls', {
+        settings = {
+
+          MATLAB = {
+            installPath = '/usr/local/MATLAB/R2025b/',
+            telemetry = false,
+          },
+        },
+      })
+      vim.lsp.enable 'matlab_ls'
     end,
   },
 
