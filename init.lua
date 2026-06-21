@@ -696,7 +696,29 @@ do
     --
     -- But for many setups, the LSP (`ts_ls`) will work just fine
     -- ts_ls = {},
-    texlab = {},
+    -- texlab = {},
+    ltex_plus = {
+      settings = {
+        ltex = {
+          enabled = false,
+        }
+      }
+    },
+
+    pylsp = {},
+
+    tinymist = {
+      settings = {
+        formatterPrintWidth = 120,
+        formatterProseWrap = true,
+        exportPdf = "onSave",
+        lint = { enabled = true },
+      }
+    },
+
+    hls = {
+      filetypes = { 'haskell', 'lhaskell', 'cabal' }
+    },
 
     stylua = {}, -- Used to format Lua code
 
@@ -761,6 +783,7 @@ do
 
   for name, server in pairs(servers) do
     vim.lsp.config(name, server)
+    -- if name == 'ltex-plus' then return end
     vim.lsp.enable(name)
   end
 end
@@ -878,7 +901,7 @@ do
     -- the rust implementation via `'prefer_rust_with_warning'`
     --
     -- See `:help blink-cmp-config-fuzzy` for more information
-    fuzzy = { implementation = 'lua' },
+    fuzzy = { implementation = 'prefer_rust_with_warning' },
 
     -- Shows a signature help window while you type arguments for a function
     signature = { enabled = true },
@@ -899,7 +922,7 @@ do
   vim.pack.add { { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' } }
 
   -- Ensure basic parsers are installed
-  local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+  local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'latex', 'query', 'vim', 'vimdoc' }
   require('nvim-treesitter').install(parsers)
 
   ---@param buf integer
@@ -907,13 +930,14 @@ do
   local function treesitter_try_attach(buf, language)
     -- Check if a parser exists and load it
     if not vim.treesitter.language.add(language) then return end
+
     -- Enable syntax highlighting and other treesitter features
     vim.treesitter.start(buf, language)
 
     -- Enable treesitter based folds
     -- For more info on folds see `:help folds`
-    -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-    -- vim.wo.foldmethod = 'expr'
+    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.wo.foldmethod = 'expr'
 
     -- Check if treesitter indentation is available for this language, and if so enable it
     -- in case there is no indent query, the indentexpr will fallback to the vim's built in one
@@ -927,6 +951,9 @@ do
   vim.api.nvim_create_autocmd('FileType', {
     callback = function(args)
       local buf, filetype = args.buf, args.match
+      
+      -- VIMTEX
+      if filetype == 'tex' then return end
 
       local language = vim.treesitter.language.get_lang(filetype)
       if not language then return end
@@ -971,11 +998,13 @@ do
   -- NOTE: You can add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- require 'custom.plugins'
+  require 'custom.plugins'
 end
 
 vim.o.guifont = 'JetBrains Mono:h12'
 vim.o.cc = '80'
+
+vim.o.sw = 4
 
 vim.o.expandtab = true
 
